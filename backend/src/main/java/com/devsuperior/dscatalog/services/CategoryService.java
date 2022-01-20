@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -31,8 +32,22 @@ public class CategoryService {
         return mapper.toCategoryDTO(category);
     }
 
+    @Transactional
     public CategoryDTO create(CategoryDTO categoryDTO) {
         var result = repository.save(mapper.toCategory(categoryDTO));
         return mapper.toCategoryDTO(result);
+    }
+
+    @Transactional
+    public CategoryDTO update(Long id, CategoryDTO categoryDTO) {
+        try {
+            var category = repository.getOne(id);
+            category.setName(categoryDTO.getName());
+            var result = repository.save(category);
+            return mapper.toCategoryDTO(result);
+
+        } catch (EntityNotFoundException e) {
+            throw new BusinessException(e.getMessage());
+        }
     }
 }
