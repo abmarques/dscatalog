@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -43,11 +44,20 @@ public class CategoryService {
         try {
             var category = repository.getOne(id);
             category.setName(categoryDTO.getName());
+            category.setUpdatedAt(Instant.now());
             var result = repository.save(category);
             return mapper.toCategoryDTO(result);
 
         } catch (EntityNotFoundException e) {
             throw new BusinessException(e.getMessage());
+        }
+    }
+
+    public void delete(Long id) {
+        try {
+            repository.deleteById(id);
+        }catch (Exception e) {
+            throw new BusinessException("An error occurred: " + e.getMessage());
         }
     }
 }
