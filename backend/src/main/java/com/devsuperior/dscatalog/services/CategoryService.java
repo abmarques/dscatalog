@@ -21,16 +21,18 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public List<CategoryDTO> findAll() {
         var result = repository.findAll();
-
         return mapper.toCategoryDTOs(result);
     }
 
     @Transactional(readOnly = true)
     public CategoryDTO findBydId(Long id) {
         var result = repository.findById(id);
-
         var category =  result.orElseThrow(() -> new BusinessException("Entity not found", HttpStatus.NOT_FOUND.value()));
-
         return mapper.toCategoryDTO(category);
+    }
+
+    public CategoryDTO create(CategoryDTO categoryDTO) {
+        var result = repository.save(mapper.toCategory(categoryDTO));
+        return mapper.toCategoryDTO(result);
     }
 }

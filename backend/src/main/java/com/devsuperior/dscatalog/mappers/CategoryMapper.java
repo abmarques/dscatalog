@@ -18,4 +18,6 @@ public interface CategoryMapper {
                 .map(this::toCategoryDTO)
                 .collect(Collectors.toList());
     }
+
+    Category toCategory(CategoryDTO categoryDTO);
 }
