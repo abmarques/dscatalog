@@ -1,6 +1,7 @@
 package com.devsuperior.dscatalog.services;
 
-import com.devsuperior.dscatalog.entities.Category;
+import com.devsuperior.dscatalog.dto.CategoryDTO;
+import com.devsuperior.dscatalog.mappers.CategoryMapper;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,11 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository repository;
+    private final CategoryMapper mapper;
 
     @Transactional(readOnly = true)
-    public List<Category> findAll() {
-        return repository.findAll();
+    public List<CategoryDTO> findAll() {
+        var result = repository.findAll();
+        return mapper.toCategoryDTOs(result);
     }
 }
