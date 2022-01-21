@@ -40,11 +40,11 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO update(Long id, ProductDTO ProductDTO) {
+    public ProductDTO update(Long id, ProductDTO productDTO) {
         try {
             var Product = repository.getOne(id);
-//            Product.setName(ProductDTO.getName());
-            var result = repository.save(Product);
+            productDTO.setId(id);
+            var result = repository.save(mapper.toProduct(productDTO));
             return mapper.toProductDTO(result);
 
         } catch (EntityNotFoundException e) {
