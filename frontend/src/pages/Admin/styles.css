@@ -7,13 +7,18 @@
   padding: 20px;
 }
 
+@media (min-width: 768px) {
+  .admin-nav-item {
+    min-width: 220px;
+  }
+}
+
 @media (min-width: 1200px) {
   .admin-container {
     flex-direction: row;
   }
 
-  
-.admin-content {
+  .admin-content {
     flex: 1;
   }
 }
