@@ -10,16 +10,16 @@ const Routes = () => {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route exact path="/">
+        <Route path="/" exact>
           <Home />
         </Route>
-        <Route exact path="/products">
+        <Route path="/products" exact>
           <Catalog />
         </Route>
         <Route path="/products/:productId">
           <ProductDetails />
         </Route>
-        <Redirect from="/admin" exact to="/admin/products" />
+        <Redirect from="/admin" to="/admin/products" exact />
         <Route path="/admin">
           <Admin />
         </Route>
