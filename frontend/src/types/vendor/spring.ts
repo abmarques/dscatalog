@@ -1,4 +1,3 @@
-
 export type SpringPage<T> = {
   content: T[];
   last: boolean;
